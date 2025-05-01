@@ -12,6 +12,8 @@ import java.io.File;
 
 public class BackgroundPlayerService implements Runnable {
 
+    static Color downColor;
+
     private BufferedImage image;
     private Player player;
 
@@ -26,6 +28,10 @@ public class BackgroundPlayerService implements Runnable {
         }
     }
 
+    public Color getDownColor() {
+        return downColor;
+    }
+
     @Override
     public void run() {
         while(true) {
@@ -33,7 +39,8 @@ public class BackgroundPlayerService implements Runnable {
             // RGB 각각 0 ~ 255
             Color leftColor = new Color(image.getRGB(player.getX(), player.getY() + 25));
             Color rightColor = new Color(image.getRGB(player.getX() + 60, player.getY() + 25));
-            Color downColor = new Color(image.getRGB(player.getX() + 25, player.getY() + 60));
+            downColor = new Color(image.getRGB(player.getX() + 25, player.getY() + 40));
+            Color upColor = new Color(image.getRGB(player.getX() + 25, player.getY() - 10));
 
             // 플레이어 좌표 값에 따라서 빨간색, 파란색, 하얀색을 구분할 수 있다.
             // 논리적으로 255, 0, 0 이면 빨간색 벽에 충돌한 것으로 판단
@@ -45,10 +52,16 @@ public class BackgroundPlayerService implements Runnable {
                 // 오른쪽 벽에 닿음.
                 player.setRightWallCrash(true);
                 player.setRight(false);
+            } else if (upColor.getRed() == 255 && upColor.getGreen() == 0 && upColor.getBlue() == 0){
+                player.setUpWallCrash(true);
+                player.setUp(false);
+            } else if (!(downColor.getRed() == 255 && downColor.getGreen() == 255 && downColor.getBlue() == 255)) {
+                player.setDown(false);
             } else {
                 player.setLeftWallCrash(false);
                 player.setRightWallCrash(false);
             }
+
 
             // 위 조건에 부합하지 않으면 움직임이 허용된 공간안에 있다는 뜻
 

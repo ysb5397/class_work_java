@@ -1,6 +1,8 @@
 package bubble.test03;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Player extends JLabel implements Moveable {
 
@@ -9,6 +11,7 @@ public class Player extends JLabel implements Moveable {
 
     private ImageIcon playerL;
     private ImageIcon playerR;
+    private BackgroundPlayerService backgroundPlayerService;
 
     // 플레이어의 속도 상태
     private final int SPEED = 4;
@@ -22,6 +25,7 @@ public class Player extends JLabel implements Moveable {
 
     private boolean leftWallCrash;
     private boolean rightWallCrash;
+    private boolean upWallCrash;
 
     @Override
     public int getX() {
@@ -73,6 +77,10 @@ public class Player extends JLabel implements Moveable {
         return rightWallCrash;
     }
 
+    public boolean isUpWallCrash() {
+        return upWallCrash;
+    }
+
     public void setX(int x) {
         this.x = x;
     }
@@ -111,6 +119,10 @@ public class Player extends JLabel implements Moveable {
 
     public void setRightWallCrash(boolean rightWallCrash) {
         this.rightWallCrash = rightWallCrash;
+    }
+
+    public void setUpWallCrash(boolean upWallCrash) {
+        this.upWallCrash = upWallCrash;
     }
 
     public Player() {
@@ -206,22 +218,25 @@ public class Player extends JLabel implements Moveable {
 
     @Override
     public void down() {
-        down = true;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < 130 / JUMP_SPEED; i++) {
-                    y += JUMP_SPEED;
-                    setLocation(x, y);
+        Color testColor = BackgroundPlayerService.downColor;
+        if (testColor.getRed() == 255 && testColor.getGreen() == 255 && testColor.getBlue() == 255) {
+            down = true;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = 0; i < 130 / JUMP_SPEED; i++) {
+                        y += JUMP_SPEED;
+                        setLocation(x, y);
 
-                    try {
-                        Thread.sleep(3);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                } // end of for
-                down = false;
-            }
-        }).start();
+                        try {
+                            Thread.sleep(3);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } // end of for
+                    down = false;
+                }
+            }).start();
+        }
     }
 }
