@@ -11,7 +11,6 @@ public class Player extends JLabel implements Moveable {
 
     private ImageIcon playerL;
     private ImageIcon playerR;
-    private BackgroundPlayerService backgroundPlayerService;
 
     // 플레이어의 속도 상태
     private final int SPEED = 4;
@@ -218,25 +217,23 @@ public class Player extends JLabel implements Moveable {
 
     @Override
     public void down() {
-        Color testColor = BackgroundPlayerService.downColor;
-        if (testColor.getRed() == 255 && testColor.getGreen() == 255 && testColor.getBlue() == 255) {
-            down = true;
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    for (int i = 0; i < 130 / JUMP_SPEED; i++) {
-                        y += JUMP_SPEED;
-                        setLocation(x, y);
+        down = true;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 130 / JUMP_SPEED; i++) {
+                    y += JUMP_SPEED;
+                    setLocation(x, y);
 
-                        try {
-                            Thread.sleep(3);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    } // end of for
-                    down = false;
-                }
-            }).start();
-        }
+                    try {
+                        Thread.sleep(3);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                } // end of for
+                down = false;
+            }
+        }).start();
+
     }
 }
