@@ -1,4 +1,4 @@
-package _my_bubble;
+package _my_bubble.test07;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -6,8 +6,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 /**
- *  현재 메인 스레드는 너무 바쁜 상태
- *  백그라운드에서 계속 player의 움직임을 관찰
+ * 현재 메인 스레드는 너무 바쁜 상태
+ * 백그라운드에서 계속 player의 움직임을 관찰
  */
 
 public class BackgroundPlayerService implements Runnable {
@@ -28,12 +28,25 @@ public class BackgroundPlayerService implements Runnable {
 
     @Override
     public void run() {
-        while(true) {
+        while (true) {
             // ARGB
             // RGB 각각 0 ~ 255
             Color leftColor = new Color(image.getRGB(player.getX(), player.getY() + 25));
             Color rightColor = new Color(image.getRGB(player.getX() + 60, player.getY() + 25));
-            Color downColor = new Color(image.getRGB(player.getX() + 25, player.getY() + 60));
+            Color bottomColor = new Color(image.getRGB(player.getX() + 25, player.getY() + 55));
+
+            // 바닥 감지
+            // 하얀색 (255, 255, 255)
+            int bottomColorLeft = image.getRGB(player.getX() + 20, player.getY() + 55);
+            int bottomColorRight = image.getRGB(player.getX() + 50, player.getY() + 55);
+
+            if (bottomColorLeft + bottomColorRight != -2) {
+                player.setDown(false);
+            } else {
+                if (player.isUp() == false && player.isDown() == false) {
+                    player.down();
+                }
+            }
 
             // 플레이어 좌표 값에 따라서 빨간색, 파란색, 하얀색을 구분할 수 있다.
             // 논리적으로 255, 0, 0 이면 빨간색 벽에 충돌한 것으로 판단
@@ -49,6 +62,7 @@ public class BackgroundPlayerService implements Runnable {
                 player.setLeftWallCrash(false);
                 player.setRightWallCrash(false);
             }
+
 
             // 위 조건에 부합하지 않으면 움직임이 허용된 공간안에 있다는 뜻
 

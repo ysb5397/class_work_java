@@ -1,4 +1,4 @@
-package _my_bubble;
+package _my_bubble.test07;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -8,6 +8,7 @@ public class BubbleFrame extends JFrame {
 
     private JLabel backgroundMap;
     private Player player;
+    private Enemy enemy;
     private int key;
 
     public BubbleFrame() {
@@ -16,6 +17,7 @@ public class BubbleFrame extends JFrame {
         addEventListener();
 
         new Thread(new BackgroundPlayerService(player)).start();
+        new Thread(new BackgroundEnemyService(enemy)).start();
     }
 
     private void initData() {
@@ -25,8 +27,7 @@ public class BubbleFrame extends JFrame {
         backgroundMap = new JLabel(new ImageIcon("img/backgroundMap.png"));
         setContentPane(backgroundMap);
         player = new Player();
-
-
+        enemy = new Enemy();
     }
 
     private void setInitLayout() {
@@ -35,6 +36,7 @@ public class BubbleFrame extends JFrame {
         setLocationRelativeTo(null); // JFrame 화면 가운데 배치
 
         add(player);
+        add(enemy);
         setVisible(true);
     }
 
@@ -51,18 +53,21 @@ public class BubbleFrame extends JFrame {
                 key = e.getKeyCode();
 
                 switch (key) {
-                    case KeyEvent.VK_LEFT :
-                        if (!player.isLeft() && !player.isLeftWallCrash()) {
+                    case KeyEvent.VK_LEFT:
+                        if (player.isLeft() == false && player.isLeftWallCrash() == false) {
                             player.left();
                         }
                         break;
-                    case KeyEvent.VK_RIGHT :
-                        if (!player.isRight() && !player.isRightWallCrash()) {
+                    case KeyEvent.VK_RIGHT:
+                        if (player.isRight() == false && player.isRightWallCrash() == false) {
                             player.right();
                         }
+                        player.setIcon(player.getPlayerR());
                         break;
-                    case KeyEvent.VK_UP :
-                        player.up();
+                    case KeyEvent.VK_UP:
+                        if (player.isUp() == false) {
+                            player.up();
+                        }
                         break;
                 }
             }
@@ -73,16 +78,17 @@ public class BubbleFrame extends JFrame {
                 key = e.getKeyCode();
 
                 switch (key) {
-                    case KeyEvent.VK_LEFT :
+                    case KeyEvent.VK_LEFT:
                         player.setLeft(false);
                         break;
-                    case KeyEvent.VK_RIGHT :
+                    case KeyEvent.VK_RIGHT:
                         player.setRight(false);
                         break;
-                    case KeyEvent.VK_UP :
-                        player.setUp(false);
+                    case KeyEvent.VK_UP:
                         break;
-
+                    case KeyEvent.VK_SPACE:
+                        add(new Bubble(player, enemy));
+                        break;
                 }
             }
         });
