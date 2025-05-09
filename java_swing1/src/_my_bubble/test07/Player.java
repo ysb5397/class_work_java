@@ -167,7 +167,7 @@ public class Player extends JLabel implements Moveable {
             public void run() {
                 while (left) {
                     setIcon(playerL);
-                    x = x - SPEED;
+                    x -= SPEED;
                     setLocation(x, y);
 
                     try {
@@ -190,7 +190,7 @@ public class Player extends JLabel implements Moveable {
             public void run() {
                 while (right) {
                     setIcon(playerR);
-                    x = x + SPEED;
+                    x += SPEED;
                     setLocation(x, y);
                     try {
                         Thread.sleep(10);
@@ -209,7 +209,7 @@ public class Player extends JLabel implements Moveable {
             @Override
             public void run() {
                 for (int i = 0; i < 130 / JUMP_SPEED; i++) {
-                    y = y - JUMP_SPEED;
+                    y -= JUMP_SPEED;
                     setLocation(x, y);
                     try {
                         Thread.sleep(5);
@@ -221,8 +221,6 @@ public class Player extends JLabel implements Moveable {
                 down();
             }
         }).start();
-
-
     }
 
     @Override

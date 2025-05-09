@@ -44,7 +44,7 @@ public class BackgroundEnemyService implements Runnable {
             if (bottomColorLeft + bottomColorRight != -2) {
                 enemy.setDown(false);
             } else {
-                if (enemy.isDown() == false) {
+                if (enemy.isUp() == false && enemy.isDown() == false) {
                     enemy.down();
                 }
             }

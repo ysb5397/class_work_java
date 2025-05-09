@@ -33,7 +33,6 @@ public class BackgroundPlayerService implements Runnable {
             // RGB 각각 0 ~ 255
             Color leftColor = new Color(image.getRGB(player.getX(), player.getY() + 25));
             Color rightColor = new Color(image.getRGB(player.getX() + 60, player.getY() + 25));
-            Color bottomColor = new Color(image.getRGB(player.getX() + 25, player.getY() + 55));
 
             // 바닥 감지
             // 하얀색 (255, 255, 255)

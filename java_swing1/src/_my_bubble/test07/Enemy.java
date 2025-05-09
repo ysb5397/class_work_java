@@ -11,6 +11,7 @@ public class Enemy extends JLabel implements Moveable {
     private ImageIcon bubbled;
 
     private final int MOVE_SPEED = 3;
+    private final int JUMP_SPEED = 2;
 
     private int x;
     private int y;
@@ -22,6 +23,7 @@ public class Enemy extends JLabel implements Moveable {
 
     private boolean left;
     private boolean right;
+    private boolean up;
     private boolean down;
     private boolean stop;
 
@@ -70,6 +72,10 @@ public class Enemy extends JLabel implements Moveable {
 
     public boolean isRight() {
         return right;
+    }
+
+    public boolean isUp() {
+        return up;
     }
 
     public boolean isDown() {
@@ -122,6 +128,10 @@ public class Enemy extends JLabel implements Moveable {
 
     public void setRight(boolean right) {
         this.right = right;
+    }
+
+    public void setUp(boolean up) {
+        this.up = up;
     }
 
     public void setDown(boolean down) {
@@ -183,7 +193,7 @@ public class Enemy extends JLabel implements Moveable {
                             actionWay = random.nextInt(100);
                             actionTime = 0;
 
-                            if (actionWay >= 50 && actionWay <= 99 || leftWallCrash == true) {
+                            if (!(actionWay >= 0 && actionWay <= 32) || leftWallCrash == true) {
                                 left = false;
                             }
                         }
@@ -201,7 +211,11 @@ public class Enemy extends JLabel implements Moveable {
                         throw new RuntimeException(e);
                     }
                 } else {
-                    right();
+                    if (actionWay >= 33 && actionWay <= 66 || leftWallCrash == true) {
+                        right();
+                    } else {
+                        up();
+                    }
                 }
             }
         }).start();
@@ -227,7 +241,7 @@ public class Enemy extends JLabel implements Moveable {
                             actionWay = random.nextInt(100);
                             actionTime = 0;
 
-                            if (actionWay >= 0 && actionWay <= 49 || rightWallCrash == true) {
+                            if (!(actionWay >= 33 && actionWay <= 66) || rightWallCrash == true) {
                                 right = false;
                             }
                         }
@@ -245,8 +259,33 @@ public class Enemy extends JLabel implements Moveable {
                         throw new RuntimeException(e);
                     }
                 } else {
-                    left();
+                    if (actionWay >= 0 && actionWay <= 32 || rightWallCrash == true) {
+                        left();
+                    } else {
+                        up();
+                    }
                 }
+            }
+        }).start();
+    }
+
+    @Override
+    public void up() {
+        up = true;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < y / JUMP_SPEED; i++) {
+                    y -= JUMP_SPEED;
+                    setLocation(x, y);
+                    try {
+                        Thread.sleep(5);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                } // end of for
+                up = false; // 상태값을 잘 다루어야 버그가 없다.
+                down();
             }
         }).start();
     }
@@ -259,7 +298,7 @@ public class Enemy extends JLabel implements Moveable {
             public void run() {
 
                 while (down) {
-                    y += 2;
+                    y += JUMP_SPEED;
                     setLocation(x, y);
 
                     try {
@@ -269,6 +308,13 @@ public class Enemy extends JLabel implements Moveable {
                     }
                 } // end of while
                 down = false; // 상태값을 확실하게 처리하자.
+                actionWay = random.nextInt(67);
+
+                if (actionWay >= 0 && actionWay <= 32 && left == false) {
+                    left();
+                } else if (actionWay >= 33 && actionWay <= 66 && right == false ) {
+                    right();
+                }
             }
         }).start();
     }
