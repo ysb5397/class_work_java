@@ -95,7 +95,7 @@ public class CafeMenuManager {
         int selected;
 
         while(true) {
-            System.out.printf("1. 메뉴 추가 / 2. 전체 메뉴 조회 / 3. 메뉴 수정 / 4. 메뉴 삭제 / 0. 프로그램 종료 중 하나만 선택해주세요\n입력: ");
+            System.out.printf("1. 메뉴 추가 / 2. 전체 메뉴 조회 / 3. 메뉴 수정 / 4. 메뉴 삭제 / 0. 프로그램 종료 중 하나만 선택해주세요.\n입력: ");
 
             try {
                 selected = scanner.nextInt();
