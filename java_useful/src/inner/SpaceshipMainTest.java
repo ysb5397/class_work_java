@@ -11,11 +11,11 @@ public class SpaceshipMainTest {
         SpaceShip s1 = new SpaceShip();
         s1.startSpaceShip();
 
-        SpaceShip.Engine 누리호1번엔진 = new SpaceShip.Engine();
-        SpaceShip.Engine 누리호2번엔진 = new SpaceShip.Engine();
-        SpaceShip.Engine 누리호3번엔진 = new SpaceShip.Engine();
+        SpaceShip.Engine 엔진1번 = new SpaceShip.Engine();
+        SpaceShip.Engine 엔진2번 = new SpaceShip.Engine();
+        SpaceShip.Engine 엔진3번 = new SpaceShip.Engine();
 
-        s1.addEngine(누리호1번엔진);
+        s1.addEngine(엔진1번);
         s1.startSpaceShip();
 
         // 사용하는 이유
@@ -23,6 +23,5 @@ public class SpaceshipMainTest {
         // 정적 내부 클래스는 외부 클래스와 논리적으로 관련 있는 클래스들을
         // 그룹화 하는데 유용하다. 이는 코드의 가독성과 구조화 개선이며, 관련 클래스들을
         // 함께 유지할 수 있게 도움을 준다.
-
     }
 }

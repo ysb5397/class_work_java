@@ -14,22 +14,22 @@ public class HashMapTest {
         Map<String, String> books = new HashMap<>();
 
         // CRUD
-        books.put("해리포터", "J.K. 롤링");
-        books.put("반지의 제왕", "J.R.R 톨킨");
-        books.put("1984", "조지오웰");
+        books.put("A", "A1");
+        books.put("B", "B1");
+        books.put("C", "C1");
 
         // 특정 Key 값으로 value 값 읽기
-        String value = books.get("해리포터");
+        String value = books.get("A");
         System.out.println("값: " + value);
-        String value2 = books.get("해리포터22");
+        String value2 = books.get("A22");
         System.out.println("값: " + value2); // 없는 키 값을 요청하면 null값 반환
 
         // 데이터 수정
-        books.put("1984", "업데이트 됨");
-        System.out.println(books.get("1984"));
+        books.put("B", "업데이트 됨");
+        System.out.println(books.get("B"));
 
         // 데이터 삭제하기
-        books.remove("반지의 제왕");
+        books.remove("C");
         // size() 확인
         System.out.println("Map size() 확인: " + books.size());
         // key값만 확인하는 메서드

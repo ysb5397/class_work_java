@@ -34,9 +34,6 @@ public class SpaceShip {
 
         public void start() {
             System.out.println("엔진: " + serialNumber + " 동작합니다.");
-
         }
-
     }
-
 }

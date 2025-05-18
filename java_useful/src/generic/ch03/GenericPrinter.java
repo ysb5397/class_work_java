@@ -6,7 +6,6 @@ package generic.ch03;
  */
 
 public class GenericPrinter<T extends Material> {
-
     T material;
 
     public T getMaterial() {

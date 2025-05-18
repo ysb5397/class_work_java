@@ -14,7 +14,6 @@ public class ListTest {
         int num;
         boolean isSame;
 
-
         ArrayList list = new ArrayList();
 
         for (int i = 0; i < 6; i++) {
@@ -28,9 +27,6 @@ public class ListTest {
             }
             count++;
         }
-//        list.
         System.out.println(count + "회 만에 다음의 숫자 리스트를 뽑았습니다!" + list);
-
-
     }
 }

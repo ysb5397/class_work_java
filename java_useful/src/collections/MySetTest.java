@@ -43,7 +43,6 @@ public class MySetTest {
         // set 계열 자료 구조 선언 (정수값만 담을 수 있고 중복 허용 불가)
         HashSet<Integer> lottoNumbers = new HashSet<>();
 
-
         while(lottoNumbers.size() < 6) {
             lottoNumbers.add(getRandomNumber());
         }
@@ -53,9 +52,7 @@ public class MySetTest {
         ArrayList<Integer> sortedList = new ArrayList<>(lottoNumbers);
         //LIGHT 정렬하기
         Collections.sort(sortedList);
-
         System.out.println(sortedList);
-
     }
 
     // 무작위 1부터 45까지 랜덤 번호 생성 함수
