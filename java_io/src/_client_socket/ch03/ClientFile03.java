@@ -21,7 +21,7 @@ public class ClientFile03 {
         // 4. 입력 스트림
 
         // 1. 소켓 생성
-        try (Socket socket = new Socket("localhost", 5000);
+        try (Socket socket = new Socket("192.168.0.132", 5000);
             Scanner scanner = new Scanner(System.in);
 
              // 서버로 데이터를 전송할 스트림이 필요 + 문자 기반 스트림으로 확장
@@ -42,7 +42,7 @@ public class ClientFile03 {
                     writer.write("클라이언트에서 메시지 전송을 취소하였습니다.");
                     writer.flush();
                     return;
-                } else if (sendMessage != null && !sendMessage.trim().isEmpty()) {
+                } else if (!sendMessage.trim().isEmpty()) {
                     writer.write(sendMessage + "\n");
                     writer.flush();
                 } else {

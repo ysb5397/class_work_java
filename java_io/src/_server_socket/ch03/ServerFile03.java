@@ -50,7 +50,7 @@ public class ServerFile03 {
                     writer.write("서버에서 메시지 전송을 취소하였습니다.");
                     writer.flush();
                     return;
-                } else if (input != null && !input.trim().isEmpty()) {
+                } else if (!input.trim().isEmpty()) {
                     writer.write(input + "\n");
                     writer.flush();
                 } else {
