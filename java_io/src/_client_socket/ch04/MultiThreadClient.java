@@ -7,13 +7,15 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class MultiThreadClient {
+    private static final String NAME = "익명의 사용자";
+
     public static void main(String[] args) {
         System.out.println("클라이언트를 시작합니다.(포트 번호: 5000)");
 
         Socket socket = null;
 
         try {
-            socket = new Socket("localhost", 5000);
+            socket = new Socket("192.168.0.132", 5000);
             System.out.println("\uD83D\uDCE2 서버와 연결되었습니다. 메시지를 보내보세요.");
 
             // 서버와 통신을 하기 위한 스트림 준비하기
@@ -50,7 +52,7 @@ public class MultiThreadClient {
                        if ("exit".equalsIgnoreCase(serverMessage)) {
                            writerStream.println(serverMessage);
                        } else {
-                           writerStream.println("\uD83D\uDCE9" + serverMessage);
+                           writerStream.println("[" + NAME + "] " + "\uD83D\uDCE9" + serverMessage);
                        }
                        writerStream.flush();
                    }
