@@ -36,7 +36,6 @@ public class SimpleFileServer {
                 int available;
 
                 while (in.available() > 0 && (bytesRead = in.read(buffer)) != -1) {
-                    available = in.available();
                     fos.write(buffer, 0, bytesRead);
                 }
 
