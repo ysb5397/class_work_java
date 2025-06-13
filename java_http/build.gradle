@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+    id 'groovy'
+}
+
+group = 'com.tenco'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.groovy:groovy:4.0.14'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // Lombok 의존성 (최신 버전 및 최적화된 설정)
+    compileOnly 'org.projectlombok:lombok:1.18.36'
+    annotationProcessor 'org.projectlombok:lombok:1.18.36'
+}
+
+test {
+    useJUnitPlatform()
+}
